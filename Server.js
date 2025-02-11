@@ -116,10 +116,10 @@ const Port = process.env.PORT || 2024;
 
 // Configure MySQL session store
 const sessionStore = new MySQLStore({
-  host: '68.178.173.163', // Your MySQL host
+  host: '127.0.0.1', // Your MySQL host
   port: 3306, // Your MySQL port
-  user: 'milleniancecom_ddspapp', // Your MySQL username
-  password: '@$e$4~bzK5SS', // Your MySQL password
+  user: 'ddsp_root', // Your MySQL username
+  password: 'ddsproot@123', // Your MySQL password
   database: 'milleniancecom_ddsp_app', // Your database name
 });
 app.use(
