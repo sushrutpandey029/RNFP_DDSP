@@ -1,0 +1,147 @@
+{{>header user=user}}
+
+{{>verticalnav}}
+
+<div class="hk-pg-wrapper">
+    <div class="container-xxl">
+
+        <header class="invoice-header">
+            <div class="d-flex align-items-center">
+                <h1>Coordinator Work Details</h1>
+            </div>
+        </header>
+
+    <br>
+        <div class="col-sm-12 table-responsive ">
+            <table id="table_id" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <!-- <th>Coordinator ID</th> -->
+                        <th>Training Programs</th>
+                        <th>Review Meetings</th>
+                        <th>Monitoring Visits</th>
+                        <th>Reports</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each data}}
+                    <tr>
+                        <!-- <td>{{this.coordinatorID}}</td> -->
+                        <td>
+                            {{#if this.trainingProgrammes.length}}
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Program Name</th>
+                                            <th>Participants</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each this.trainingProgrammes}}
+                                        <tr>
+                                            <td>{{this.date}}</td>
+                                            <td>{{this.name}}</td>
+                                            <td>{{this.participants}}</td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            {{else}}
+                                <p>No training programs available</p>
+                            {{/if}}
+                        </td>
+                        <td>
+                            {{#if this.reviewMeetings.length}}
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Field Officers</th>
+                                            <th>Participants</th>
+                                            <th>Asst. Project Coordinators</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each this.reviewMeetings}}
+                                        <tr>
+                                            <td>{{this.date}}</td>
+                                            <td>
+                                                <ul>
+                                                    {{#each this.fieldOfficer}}
+                                                        <li>{{this}}</li>
+                                                    {{/each}}
+                                                </ul>
+                                            </td>
+                                            <td>{{this.participants}}</td>
+                                            <td>
+                                                <ul>
+                                                    {{#each this.asstProjectCoordinator}}
+                                                        <li>{{this}}</li>
+                                                    {{/each}}
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            {{else}}
+                                <p>No review meetings available</p>
+                            {{/if}}
+                        </td>
+                        <td>
+                            {{#if this.monitoringVisits.length}}
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Cluster</th>
+                                            <th>Observations</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each this.monitoringVisits}}
+                                        <tr>
+                                            <td>{{this.date}}</td>
+                                            <td>{{this.cluster}}</td>
+                                            <td>{{this.observations}}</td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            {{else}}
+                                <p>No monitoring visits available</p>
+                            {{/if}}
+                        </td>
+                        <td>
+                            {{#if this.reports.length}}
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Details</th>
+                                            <th>Submitted Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each this.reports}}
+                                        <tr>
+                                            <td>{{this.details}}</td>
+                                            <td>{{this.submittedDate}}</td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            {{else}}
+                                <p>No reports available</p>
+                            {{/if}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{{>footer}}
+

@@ -1,0 +1,84 @@
+{{>header user=user}}
+
+{{>verticalnav}}
+
+<div class="hk-pg-wrapper">
+    <div class="container-xxl">
+        <header class="invoice-header">
+            <div class="d-flex align-items-center">
+                <h1>User Attendance Details</h1>
+            </div>
+        </header>
+        <div class="col-sm-12">
+            <table id="attendance_table" class="display">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th>Address</th>
+                        <th>Date</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each data}}
+                    <tr>
+                        <td>{{this.id}}</td>
+                        <td>{{this.userId}}</td>
+                        <td>{{this.fullname}}</td>
+                        <td>{{this.role}}</td>
+                        <td>{{this.latitude}}</td>
+                        <td>{{this.longitude}}</td>
+                        <td>{{this.address}}</td>
+                        <td>{{this.createdAt}}</td>
+                        <td>
+                            <button class="btn btn-sm btn-danger delete-btn" data-id="{{this.id}}">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{{>footer}}
+
+<script>
+    $(document).ready(function () {
+        $('#attendance_table').DataTable();
+
+        // Handle the delete button click
+        $('.delete-btn').on('click', function () {
+            const locationId = $(this).data('id'); // Get the location ID from data-id attribute
+
+            // Ask for confirmation before deleting
+            if (confirm('Are you sure you want to delete this User location?')) {
+                // Send AJAX request to delete the location
+                $.ajax({
+                    url: `/deleteuserlocation/${locationId}`,  // Adjust the URL according to your route
+                    type: 'DELETE',
+                    success: function (response) {
+                        if (response.success) {
+                            // Remove the row from the table
+                            $(`#attendance_table tr:has(td:contains(${locationId}))`).remove();
+                            alert('Location deleted successfully!');
+                        } else {
+                            alert(response.message || 'Failed to delete location. Please try again.');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert('An error occurred while deleting the location.');
+                        console.error('Error:', error);
+                    }
+                });
+            }
+        });
+    });
+</script>

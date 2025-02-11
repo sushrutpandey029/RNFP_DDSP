@@ -1,0 +1,90 @@
+System Architecture Overview:
+
+The RNFP mobile application is built using a client-server architecture, with the frontend developed in React Native and the backend powered by Mysql.
+The backend APIs are built using RESTful principles and are hosted on a cPanel environment.
+Continuous Integration and Deployment (CI/CD) pipelines are managed using Jenkins, while Git and GitHub are used for version control. 
+The admin panel is also developed using Mysql for backend logic and HTML, CSS, and AJAX for frontend interactions.
+
+1. Client-Side (Frontend):
+
+Technology: React Native
+Platform: Android and iOS mobile devices
+Functionality:
+Provides user interfaces (UI) for interacting with the application.
+Consumes data from REST APIs provided by the backend.
+Handles user inputs, displays real-time information, and manages navigation.
+Asynchronous operations (e.g., API calls) using React Native lifecycle methods.
+State management using React hooks or other libraries like Redux (if applicable).
+
+2. Server-Side (Backend):
+Technology: Mysql
+Framework: Express (if applicable)
+Functionality:
+Handles business logic and processes client requests.
+Exposes a set of REST APIs for the mobile frontend and admin panel.
+Manages user authentication, data storage, and server-side validations.
+Interacts with databases (e.g., MongoDB, MySQL, etc.) for storing and retrieving data.
+Ensures security using practices like JWT (JSON Web Token) for authentication and encryption for sensitive data transmission.
+
+3. API Layer:
+Type: REST APIs
+Technology: Mysql with Express
+Functionality:
+APIs allow the mobile application to interact with backend services.
+CRUD operations (Create, Read, Update, Delete) for different resources like users, settings, or application data.
+Ensures that data is validated and structured before being passed to the database.
+APIs are secured with authentication tokens and rate limiting.
+
+4. Version Control:
+Technology: Git & GitHub
+Functionality:
+Version control for tracking changes in code.
+Collaborating with team members using branching, pull requests, and code reviews.
+GitHub Actions for continuous integration and testing (optional).
+
+5. Continuous Integration & Deployment (CI/CD):
+Technology: Jenkins
+Functionality:
+Automated build and test pipeline for the application.
+Deploys the backend to cPanel after successful builds and tests.
+Automates the testing process for various components of the application.
+Ensures that the latest code is tested and deployed without manual intervention.
+
+6. Deployment:
+Platform: cPanel
+Functionality:
+Hosts both the backend server and APIs.
+Manages the deployment of backend Mysql services.
+Provides a user-friendly interface for managing files, databases, and server configurations.
+Handles SSL certificates and other security configurations for the backend server.
+
+7. Admin Panel:
+Technology (Frontend): HTML, CSS, JavaScript, AJAX
+Technology (Backend): Mysql
+Functionality:
+Provides an interface for administrators to manage the application’s data and users.
+AJAX is used for asynchronous interactions between the frontend and backend.
+Allows administrators to perform CRUD operations on the application's data (e.g., managing users, viewing reports, etc.).
+Ensures secure authentication and role-based access control for administrators.
+
+8. Database (Optional if applicable):
+Technology: MySQL / MongoDB / PostgreSQL (based on project requirements)
+Functionality:
+Stores application data, user profiles, and any transactional records.
+Handles queries from both the mobile application and admin panel.
+Manages relationships and complex queries for data-intensive operations.
+
+9. Security Considerations:
+User Authentication: JSON Web Tokens (JWT) for secure user login and session management.
+Data Protection: Use of HTTPS for secure data transmission and encryption of sensitive data like passwords.
+Authorization: Role-based access control for users and admins to ensure restricted access to specific functionalities.
+
+
+
+
+database.default.hostname = localhost
+ database.default.database = milleniancecom_cidb
+ database.default.username = milleniancecom_cidb
+ database.default.password = HL+9@l8Mfd3w
+ database.default.DBDriver = MySQLi
+ database.default.DBPrefix =

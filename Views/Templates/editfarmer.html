@@ -1,0 +1,189 @@
+{{>header farmer=farmer farmersList=farmersList}}
+{{>verticalnav farmersList=farmersList}}
+
+<div class="hk-pg-wrapper">
+    <div class="container-xxl">
+        <header class="invoice-header">
+            <div class="d-flex align-items-center">
+                <h1>Edit Farmer Details</h1>
+                {{#if error}}
+                {{#each error}}
+                <div class="alert alert-danger" role="alert">{{this}}</div>
+                {{/each}}
+                {{/if}}
+                {{#if success}}
+                <div class="alert alert-success" role="alert">{{success}}</div>
+                {{/if}}
+
+                <script>
+                    window.setTimeout(function () {
+                        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                            $(this).remove();
+                        });
+                    }, 3000);
+                </script>
+            </div>
+        </header>
+
+        <form id="farmerUpdateForm" action="/adminupdatefarmer/{{farmer.id}}" method="post">
+            <!-- Basic Details -->
+            <div class="mb-3">
+                <label for="farmerID" class="form-label">Farmer ID</label>
+                <input type="text" class="form-control" id="farmerID" value="{{farmer.farmerID}}" name="farmerID"
+                    readonly>
+            </div>
+
+            <div class="mb-3">
+                <label for="newname" class="form-label">Name</label>
+                <input type="text" class="form-control" id="newname" value="{{farmer.name}}" name="newname">
+            </div>
+
+            <div class="mb-3">
+                <label for="mobileNumber" class="form-label">Mobile Number</label>
+                <input type="tel" class="form-control" id="mobileNumber" value="{{farmer.mobileNumber}}"
+                    name="mobileNumber" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="emailID" class="form-label">Email ID</label>
+                <input type="email" class="form-control" id="emailID" value="{{farmer.emailID}}" name="emailID">
+            </div>
+
+            <div class="mb-3">
+                <label for="district" class="form-label">Village Name</label>
+                <select class="form-select" id="village" name="villagename" required>
+                    {{#each village}}
+                    <option value="{{this}}" {{#if (eq ../farmer.villageName this)}}selected{{/if}}>{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="district" class="form-label">Taluka Name</label>
+                <select class="form-select" id="taluka" name="taluka" required>
+                    {{#each taluka}}
+                    <option value="{{this}}" {{#if (eq ../farmer.taluka this)}}selected{{/if}}>{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="district" class="form-label">Cluster Name</label>
+                <select class="form-select" id="clusterName" name="clusterName" required>
+                    {{#each clusterName}}
+                    <option value="{{this}}" {{#if (eq ../farmer.clusterName this)}}selected{{/if}}>{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="district" class="form-label">District</label>
+                <select class="form-select" id="district" name="district" required>
+                    {{#each districts}}
+                    <option value="{{this}}" {{#if (eq ../farmer.district this)}}selected{{/if}}>{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="cultivatedLand" class="form-label">Total Land (in acres)</label>
+                <input type="number" class="form-control" id="cultivatedLand" value="{{farmer.cultivatedLand}}"
+                    name="cultivatedLand">
+            </div>
+
+            <div class="mb-3">
+                <label for="cultivatedLand" class="form-label">No. of DesiBreeds (Cow/Bullock)</label>
+                <input type="number" class="form-control" id="desiBreeds" value="{{farmer.desiBreeds}}"
+                    name="desiBreeds">
+            </div>
+
+            <div class="mb-3">
+                <label for="typeOfLand" class="form-label">Type of Land</label>
+                <select class="form-select" id="typeOfLand" name="typeOfLand" required>
+                    {{#each typeOfLand}}
+                    <option value="{{this}}" {{#if (eq ../farmer.typeOfLand this)}}selected{{/if}}>{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+            
+            <div class="mb-3">
+                <label for="cropsSown" class="form-label">Crops Sown</label>
+                <div>
+                    <h5>Kharif Crops</h5>
+                    {{#each farmer.cropsSown.kharif}}
+                    {{#if this.length}}
+                    <h6>{{@key}} (Irrigation Type)</h6>
+                    {{#each this}}
+                    <div class="mb-3">
+                        <label for="kharifCrop_{{@../key}}_{{@index}}" class="form-label">Crop</label>
+                        <input type="text" class="form-control" id="kharifCrop_{{@../key}}_{{@index}}" value="{{crop}}"
+                            name="cropsSown.kharif.{{@../key}}[{{@index}}].crop">
+
+                        <label for="kharifCropLand_{{@../key}}_{{@index}}" class="form-label">Crop Land (in
+                            acres)</label>
+                        <input type="number" class="form-control" id="kharifCropLand_{{@../key}}_{{@index}}"
+                            value="{{cropLand}}" name="cropsSown.kharif.{{@../key}}[{{@index}}].cropLand">
+                    </div>
+                    {{/each}}
+                    {{/if}}
+                    {{/each}}
+                    <h5>Rabi Crops</h5>
+                    {{#each farmer.cropsSown.rabi}}
+                    {{#if this.length}}
+                    <h6>{{@key}} (Irrigation Type)</h6>
+                    {{#each this}}
+                    <div class="mb-3">
+                        <label for="rabiCrop_{{@../key}}_{{@index}}" class="form-label">Crop </label>
+                        <input type="text" class="form-control" id="rabiCrop_{{@../key}}_{{@index}}" value="{{crop}}"
+                            name="cropsSown.rabi.{{@../key}}[{{@index}}].crop">
+
+                        <label for="rabiCropLand_{{@../key}}_{{@index}}" class="form-label">Crop Land (in acres)</label>
+                        <input type="number" class="form-control" id="rabiCropLand_{{@../key}}_{{@index}}"
+                            value="{{cropLand}}" name="cropsSown.rabi.{{@../key}}[{{@index}}].cropLand">
+                    </div>
+                    {{/each}}
+                    {{/if}}
+                    {{/each}}
+                </div>
+            </div>
+
+
+
+            <div class="mb-3">
+                <label for="sourceIrrigationItems" class="form-label">Irrigation Source</label>
+                <select class="form-select" id="sourceIrrigationItems" name="sourceIrrigationItems" required>
+                    {{#each sourceIrrigationItems}}
+                    <option value="{{this}}" {{#if (eq ../farmer.sourceIrrigationItems this)}}selected{{/if}}>{{this}}
+                    </option>
+                    {{/each}}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="soilConservationMeasures" class="form-label">Soil Conservation Measures</label>
+                <select class="form-select" id="conservationMeasureItems" name="conservationMeasureItems" required>
+                    {{#each conservationMeasureItems}}
+                    <option value="{{this}}" {{#if (eq ../farmer.soilConservationMeasures this)}}selected{{/if}}>
+                        {{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="microIrrigation" class="form-label">Micro Irrigation</label>
+                <select class="form-select" id="microIrrigation" name="microIrrigation" required>
+                    {{#each microIrrigation}}
+                    <option value="{{this}}" {{#if (eq ../farmer.microIrrigation this)}}selected{{/if}}>{{this}}
+                    </option>
+                    {{/each}}
+                </select>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Update Farmer</button>
+        </form>
+    </div>
+</div>
+
+{{>footer}}

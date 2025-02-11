@@ -1,0 +1,41 @@
+{
+  "name": "ddsp",
+  "version": "1.0.0",
+  "description": "This is a Backend Server of Mobile Application DDSP And Admin Panel",
+  "main": "Server.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon Server.js",
+    "dev run": "npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "DDPS",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
+    "connect-flash": "^0.1.1",
+    "connect-redis": "^7.1.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-handlebars": "^8.0.1",
+    "express-mysql-session": "^3.0.3",
+    "express-session": "^1.18.1",
+    "hbs": "^4.2.0",
+    "init": "^0.1.2",
+    "jsonwebtoken": "^9.0.2",
+    "method-override": "^3.0.0",
+    "mongoose": "^8.7.2",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.11.3",
+    "nodemon": "^3.1.7",
+    "redis": "^4.7.0",
+    "sequelize": "^6.37.4",
+    "xlsx": "^0.18.5"
+  },
+  "engines": {
+    "node": "19.x"
+  }
+}

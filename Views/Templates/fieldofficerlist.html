@@ -1,0 +1,73 @@
+{{>header user=user farmersList=farmersList}}
+
+{{>verticalnav farmersList=farmersList}}
+
+<div class="hk-pg-wrapper">
+    <div class="container-xxl">
+
+        <header class="invoice-header">
+            <div class="d-flex align-items-center">
+                <a class="invoiceapp-title link-dark" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <h1>All Users</h1>
+                </a>
+            </div>
+        </header>
+
+        <div class="row">
+            <div class="col-7 mb-3">
+                <div class="invoice-toolbar-left">
+                    <div class="d-xxl-flex d-none align-items-center form-group mb-0">
+                        <label class="flex-shrink-0 mb-0 me-2">User Type:</label> <select class="form-select form-select-sm w-130p">
+                            <option selected="">All</option>
+                            <option value="1">Payee</option>
+                            <option value="2">Participants</option>
+                            <option value="2">Both</option>
+                        </select>
+                    </div>
+                    <div class="d-xxl-flex d-none align-items-center form-group mb-0">
+                        <label class="flex-shrink-0 mb-0 me-2">Export Data:</label> <select class="form-select form-select-sm w-130p">
+                            <option selected="">Select</option>
+                            <option value="1">Export to CSV</option>
+                            <option value="2">Export to PDF</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <table id="table_id" class="display">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>EmailID</th>
+                        <th>Profile</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each users}}
+                    <tr>
+                        <td>{{this.id}}</td>
+                        <td><img src="/profile-images/{{this.profileimage}}" width="100" height="100"></img></td>
+                        <td>{{this.fullname}}</td>
+                        <td>{{this.emailid}}</td>
+                        <td>{{this.role}}</td>
+                        <td><a href="/edituser/{{this.id}}" class="btn btn-sm btn-primary">
+                          
+                        </a></td>
+                        <td> <a href="/delete/{{this.id}}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this user?');">
+                           
+                        </a></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{{>footer}}
+

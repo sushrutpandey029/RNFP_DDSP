@@ -1,0 +1,144 @@
+{{> header user=user}}
+
+{{> verticalnav}}
+
+<div class="hk-pg-wrapper">
+    <div class="container-xxl">
+        <!-- Page Header -->
+        <header class="invoice-header">
+            <div class="d-flex align-items-center">
+                <h1>Location Data</h1>
+            </div>
+        </header>
+
+        <!-- Filters: User and Role Selection -->
+        <!-- <div class="row"> -->
+            <!-- <div class="col-7 mb-3">
+                <form method="GET" action="/locationreportbyuser">
+                   
+                    <label class="form-label me-2">Select User:</label>
+                    <select class="form-select form-select-sm w-130p d-inline" name="fullname">
+                        <option value="" {{#if (eq fullname "")}}selected{{/if}}>All</option>
+                        {{#each users}}
+                            <option value="{{this.fullname}}" {{#if (eq this.fullname ../fullname)}}selected{{/if}}>
+                                {{this.fullname}}
+                            </option>
+                        {{/each}}
+                    </select>
+
+               
+                    <label class="form-label me-2 ms-4">Select Role:</label>
+                    <select class="form-select form-select-sm w-130p d-inline" name="role">
+                        <option value="" {{#if (eq role "")}}selected{{/if}}>All</option>
+                        {{#each roles}}
+                            <option value="{{this.role}}" {{#if (eq this.role ../role)}}selected{{/if}}>
+                                {{this.role}}
+                            </option>
+                        {{/each}}
+                    </select>
+
+                   
+                    <button type="submit" class="btn btn-primary btn-sm ms-2">Filter</button>
+                </form>
+            </div> -->
+
+            <div class="row">
+                <div class="col-12 mb-3">
+                    
+                    <form method="GET" action="/locationreportbyuser">
+                        <div class="d-flex align-items-center">
+                            <!-- User Dropdown -->
+                            <div class="me-3">
+                               
+                                <label class="form-label">Select User:</label>
+                                <select class="form-select form-select-sm" name="fullname">
+                                    <option value="" {{#if (eq fullname "")}}selected{{/if}}>All</option>
+                                    {{#each users}}
+                                    <option value="{{this.fullname}}" {{#if (eq this.fullname ../fullname)}}selected{{/if}}>
+                                        {{this.fullname}}
+                                    </option>
+                                    {{/each}}
+                                </select>
+                            </div>
+            
+                            <!-- Role Dropdown -->
+                            <div class="me-3">
+                                <label class="form-label">Select Role:</label>
+                                <select class="form-select form-select-sm" name="role">
+                                    <option value="" {{#if (eq role "")}}selected{{/if}}>All</option>
+                                    {{#each roles}}
+                                    <option value="{{this.role}}" {{#if (eq this.role ../role)}}selected{{/if}}>
+                                        {{this.role}}
+                                    </option>
+                                    {{/each}}
+                                </select>
+                            </div>
+            
+                            <!-- Filter Button -->
+                            <div>
+                                <label class="form-label d-block invisible">Filter</label>
+                                <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            
+
+            <form method="GET" action="/downloadsxcelLocationByName">
+                <input type="hidden" name="fullname" value="{{fullname}}">
+                <input type="hidden" name="role" value="{{role}}">
+                <button type="submit"  id="excel-to-excel-btn"class="btn btn-sm btn-primary" name="export" value="excel">Export to Excel</button>
+            </form>
+        </div>
+
+
+        
+        
+
+        <!-- Error Message if No Location Data -->
+        {{#if (not success)}}
+            <div class="alert alert-danger" role="alert">
+                {{message}}
+            </div>
+        {{/if}}
+
+        <!-- Location Data Table -->
+        {{#if success}}
+            <div class="row">
+                <div class="col-sm-12 table-responsive">
+                    <h3>Location Details</h3>
+                    <table class="table table-bordered" id="locationTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th>Address</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>Created At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each locations}}
+                                <tr>
+                                    <td>{{@index}}</td>
+                                    <td>{{this.fullname}}</td>
+                                    <td>{{this.role}}</td>
+                                    <td>{{this.address}}</td>
+                                    <td>{{this.latitude}}</td>
+                                    <td>{{this.longitude}}</td>
+                                    <td>{{this.createdAt}}</td>
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {{/if}}
+    </div>
+</div>
+
+{{> footer}}

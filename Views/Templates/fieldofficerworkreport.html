@@ -1,0 +1,102 @@
+{{>header user=user farmersList=farmersList}}
+
+{{>verticalnav farmersList=farmersList}}
+
+<div class="hk-pg-wrapper">
+    <div class="container-xxl">
+
+        <header class="invoice-header">
+            <div class="d-flex align-items-center">
+                <a class="invoiceapp-title link-dark" href="#" role="button">
+                    <h1>Field Officer Work Report</h1>
+                </a>
+            </div>
+        </header>
+        <br>
+
+        <div class="col-7 ">
+            <form method="get" action="/getfieldworkerreport">
+                <div class="d-flex align-items-center">
+                    <label class="me-2" for="name">Select Name:</label>
+                    <select name="name" id="name" class="form-select form-select-sm w-25 me-3">
+                        <option value="">All</option>
+                        {{#each uniqueNames}}
+                        <option value="{{this.name}}" {{#if (eq ../selectedName this.name)}}selected{{/if}}>
+                            {{this.name}}</option>
+                        {{/each}}
+                    </select>
+
+                    <!-- Year Filter -->
+                    <label class="me-2" for="name">Select Year:</label>
+                    <select name="year" id="year" class="form-select form-select-sm w-25 me-3">
+                        <option value="">All</option>
+                        {{#each yearsList}}
+                        <option value="{{this}}" {{#ifCond ../selectedYear this}}selected{{/ifCond}}>{{this}}</option>
+                        {{/each}}
+                    </select>
+
+
+                    <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+                </div>
+            </form>
+            <br>
+
+            <div class="col-5 text-end" style="margin-left: 10px;">
+                <!-- Button to Download Excel -->
+                <form method="get" action="/downloadFieldWorkerReport">
+                    <input type="hidden" name="name" value="{{selectedName}}">
+                    <input type="hidden" name="year" value="{{selectedYear}}">
+                    <button type="submit" class="btn btn-success btn-sm">Download Excel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Message Section -->
+    {{#if message}}
+    <div class="alert {{#if success}}alert-success{{else}}alert-danger{{/if}}">
+        {{message}}
+    </div>
+    {{/if}}
+
+    <!-- Field Worker Table -->
+    {{#if success}}
+    <div class="col-sm-12 table-responsive">
+        <h3>Total Records: {{totalRecords}}</h3>
+        <table id="table_id" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Qualifications</th>
+                    <th>Mobile Number</th>
+                    <th>Email ID</th>
+                    <th>Work Date</th>
+                    <th>Villages Visited</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each fieldWorkerData}}
+                <tr>
+                    <td>{{this.id}}</td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.address}}</td>
+                    <td>{{this.qualifications}}</td>
+                    <td>{{this.mobileNumber}}</td>
+                    <td>{{this.emailID}}</td>
+                    <td>{{this.workDate}}</td>
+                    <td>{{this.villagesVisited}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    {{else}}
+    <p>No data available for the selected name. Please choose another name.</p>
+    {{/if}}
+</div>
+</div>
+
+{{>footer}}

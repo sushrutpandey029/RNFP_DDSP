@@ -1,0 +1,140 @@
+{{>header user=user}}
+
+{{>verticalnav}}
+
+<div class="hk-pg-wrapper">
+    <div class="container-xxl">
+        <header class="invoice-header">
+            <div class="d-flex align-items-center">
+                <a class="invoiceapp-title link-dark" data-bs-toggle="dropdown" href="#" role="button"
+                    aria-haspopup="true" aria-expanded="false">
+                    <h1>Add User</h1>
+
+                    {{#if error}}
+                        {{#each error}}
+                            <div class="alert alert-danger" role="alert">
+                                {{this}}
+                            </div>
+                        {{/each}}
+                    {{/if}}
+
+                    {{#if success}}
+                        {{#each success}}
+                            <div class="alert alert-success" role="alert">
+                                {{this}}
+                            </div>
+                        {{/each}}
+                    {{/if}}
+
+                    <script>
+                        window.setTimeout(function () {
+                            $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                                $(this).remove();
+                            });
+                        }, 3000);
+                    </script>
+                </a>
+            </div>
+        </header>
+     <br>
+        <form id="userRegisterForm" action="/api/admin/userregister" method="POST" enctype="multipart/form-data">
+            <!-- Full Name -->
+            <div class="mb-3">
+                <label for="fullname" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="fullname" name="fullname">
+            </div>
+
+            <!-- Email ID -->
+            <div class="mb-3">
+                <label for="emailid" class="form-label">Email ID</label>
+                <input type="email" class="form-control" id="emailid" name="emailid">
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
+
+            <!-- Phone Number -->
+            <div class="mb-3">
+                <label for="phonenumber" class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" id="phonenumber" name="phonenumber">
+            </div>
+
+            <!-- Role -->
+            <div class="mb-3">
+                <label for="role" class="form-label">Role</label>
+                <select class="form-select" id="role" name="role">
+                    <option value="" disabled selected>Select a role</option>
+                    <option value="Project Coordinator">Project Coordinator</option>
+                    <option value="Assistant Project Coordinator">Assistant Project Coordinator</option>
+                    <option value="Field Officer">Field Officer</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="distic" class="form-label">District</label>
+                <select class="form-select" id="distic" name="distic">
+                    <option value="" disabled selected>Select a district</option>
+                    <option value="Yavatmal">Yavatmal</option>
+                    <option value="Washim">Washim</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="block" class="form-label">Block</label>
+                <input type="text" class="form-control" name="block" id="block">
+            </div>
+
+            <div class="mb-3">
+                <label for="village" class="form-label">Village Name</label>
+                <select class="form-select" id="village" name="village">
+                    <option value="" disabled selected>Select a Village</option>
+                    {{#each village}}
+                    <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </select>
+                <!-- <label for="village" class="form-label">Village Name</label> -->
+                <!-- <select class="form-select" id="village" name="village">
+                    <option value="" disabled selected>Select a Village</option>
+                    <option value="village1">village1</option>
+                    <option value="village2">village2</option>
+                </select> -->
+            </div>
+
+            <!-- Cultivated Land -->
+            <div class="mb-3">
+                <label for="cultivatedland" class="form-label">Cultivated Land</label>
+                <select class="form-select" id="cultivatedland" name="cultivatedland">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <!-- Date of Birth -->
+            <div class="mb-3">
+                <label for="dob" class="form-label">Date of Birth</label>
+                <input type="date" class="form-control" id="dob" name="dob">
+            </div>
+
+            <!-- Qualification -->
+            <div class="mb-3">
+                <label for="qualification" class="form-label">Qualification</label>
+                <input type="text" class="form-control" id="qualification" name="qualification">
+            </div>
+
+            <div class="mb-3">
+                <label for="profileimage" class="form-label">Profile Image</label>
+                <input type="file" class="form-control" id="profileimage" name="profileimage" accept="image/*">
+            </div>
+
+           
+            <button  id="Regiter-btn-Add-User" type="submit"class="btn btn-primary">Register</button>
+          
+        </form>
+    </div>
+</div>
+
+{{>footer}}

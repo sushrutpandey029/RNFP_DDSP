@@ -1,0 +1,215 @@
+{{>header user=user}}
+
+{{>verticalnav}}
+<style>
+    .profit {
+        color: green;
+        font-weight: bold;
+    }
+
+    .loss {
+        color: red;
+        font-weight: bold;
+    }
+</style>
+<div class="hk-pg-wrapper">
+    <div class="container-xxl">
+        <header class="invoice-header">
+            <div class="d-flex align-items-center">
+                <h1>Crop Report</h1>
+            </div>
+        </header>
+
+        <br>
+<!-- <div class="row">
+            <div class="col-4 mb-1">
+                <form method="GET" action="/getFarmerCropByCrop">
+                    
+
+                   
+                    <label class="form-label me-2">Select Season:</label>
+                    <select class="form-select form-select-sm w-130p" name="season">
+                        {{#each seasonList}}
+                        <option value="{{this}}" {{#if (eq season this)}}selected{{/if}}>{{this}}</option>
+                        {{/each}}
+                    </select>
+
+               
+                    <label class="form-label me-2">Select Irrigation Type:</label>
+                    <select class="form-select form-select-sm w-130p" name="irrigationType">
+                        {{#each irrigationTypeList}}
+                        <option value="{{this}}" {{#if (eq irrigationType this)}}selected{{/if}}>{{this}}</option>
+                        {{/each}}
+                    </select>
+                    
+                 
+                    <label class="form-label me-2">Select Crop:</label>
+                    <select class="form-select form-select-sm w-130p" name="crop">
+                        {{#each cropList}}
+                        <option value="{{this}}" {{#if (eq crop this)}}selected{{/if}}>{{this}}</option>
+                        {{/each}}
+                    </select>
+
+                    <label class="form-label me-2">Select Year:</label>
+                    <select class="form-select form-select-sm w-130p" name="year">
+                        {{#each yearList}}
+                        <option value="{{this}}" {{#if (eq year this)}}selected{{/if}}>{{this}}</option>
+                        {{/each}}
+                    </select>
+
+                    <button type="submit" class="btn btn-primary btn-sm ms-2">Filter</button>
+                </form>
+            </div>
+        </div> -->
+
+
+        <div class="row">
+            <div class="col-3 mb-1">
+                <form method="GET" action="/getFarmerCropByCrop">
+                    <!-- Season Dropdown -->
+                    <div class="mb-2">
+                        <label class="form-label me-2">Select Season:</label>
+                        <select class="form-select form-select-sm w-100" name="season">
+                            {{#each seasonList}}
+                            <option value="{{this}}" {{#if (eq season this)}}selected{{/if}}>{{this}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+            </div>
+        
+            <div class="col-3 mb-1">
+                    <!-- Irrigation Type Dropdown -->
+                    <div class="mb-2">
+                        <label class="form-label me-2">Select Irrigation Type:</label>
+                        <select class="form-select form-select-sm w-100" name="irrigationType">
+                            {{#each irrigationTypeList}}
+                            <option value="{{this}}" {{#if (eq irrigationType this)}}selected{{/if}}>{{this}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+            </div>
+        
+            <div class="col-3 mb-1">
+                    <!-- Crop Dropdown -->
+                    <div class="mb-2">
+                        <label class="form-label me-2">Select Crop:</label>
+                        <select class="form-select form-select-sm w-100" name="crop">
+                            {{#each cropList}}
+                            <option value="{{this}}" {{#if (eq crop this)}}selected{{/if}}>{{this}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+            </div>
+        
+            <div class="col-2 mb-1">
+                    <!-- Year Dropdown -->
+                    <div class="mb-2">
+                        <label class="form-label me-2">Select Year:</label>
+                        <select class="form-select form-select-sm w-100" name="year">
+                            {{#each yearList}}
+                            <option value="{{this}}" {{#if (eq year this)}}selected{{/if}}>{{this}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+            </div>
+        
+            <div class="col-1 mb-1">
+                    <!-- Filter Button -->
+
+                    
+                    <label class="form-label me-2"></label>
+                    <button type="submit"  id="Filter-btn-report" class="btn btn-primary btn-sm w-100">Filter</button>
+                </form>
+            </div>
+        </div>
+        
+        
+        
+        <!-- Download Excel Button -->
+        <div class="row mb-3">
+            <div class="col-12">
+                <a href="/downloadCropReportExcel?crop={{crop}}&season={{season}}&irrigationType={{irrigationType}}&year={{year}}"
+                    class="btn btn-success">Download Excel</a>
+            </div>
+        </div>
+
+        <!-- Cultivation Data Table -->
+        <div class="row">
+            <div class="col-sm-12 table-responsive">
+                <h3>Cultivation Costs for {{crop}}</h3>
+                <table class="table table-bordered" id="cultivationTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Crop</th>
+                            <th>Season</th>
+                            <th>Seed Cost</th>
+                            <th>Land Prepration Cost</th>
+                            <th>Fertilizer Cost</th>
+                            <th>Pesticide Cost</th>
+                            <th>Harvest Cost</th>
+                            <th>Labor Cost</th>
+                            <th>Misc Cost</th>
+                            <th>Total Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each cultivationData}}
+                        <tr>
+                            <td>{{@index}}</td>
+                            <td>{{crops.crop}}</td>
+                            <td>{{crops.season}}</td>
+                            <td>{{crops.costs.seedCost}}</td>
+                            <td>{{crops.costs.landCost}}</td>
+                            <td>{{crops.costs.fertilizerCost}}</td>
+                            <td>{{crops.costs.pesticideCost}}</td>
+                            <td>{{crops.costs.harvestCost}}</td>
+                            <td>{{crops.costs.laborCost}}</td>
+                            <td>{{crops.costs.miscCost}}</td>
+                            <td>{{crops.totalCost}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Production Data Table -->
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>Production Details for {{crop}}</h3>
+                <table class="table table-bordered" id="productionTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Crop</th>
+                            <th>Season</th>
+                            <th>Total Yield</th>
+                            <th>Total Sale Value</th>
+                            <th>Surplus</th>
+                            <th>Sale Value per Quintal</th>
+                            <th>Total Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each productionData}}
+                        <tr>
+                            <td>{{@index}}</td>
+                            <td>{{cropName.name}}</td>
+                            <td>{{cropName.season}}</td>
+                            <td>{{cropName.totalYield}}</td>
+                            <td>{{cropName.totalSaleValue}}</td>
+                            <td>{{cropName.surplus}}</td>
+                            <td>{{cropName.saleValuePerQuintal}}</td>
+                            <td>{{cropName.totalCost}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{{>footer}}

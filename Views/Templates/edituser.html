@@ -1,0 +1,120 @@
+{{>header user=user farmersList=farmersList}}
+
+{{>verticalnav farmersList=farmersList}}
+
+<div class="hk-pg-wrapper">
+    <div class="container-xxl">
+
+        <header class="invoice-header">
+            <div class="d-flex align-items-center">
+                <a class="invoiceapp-title link-dark" data-bs-toggle="dropdown" href="#" role="button"
+                    aria-haspopup="true" aria-expanded="false">
+                    <h1>Edit User</h1>
+                    {{#if error}}
+                        {{#each error}}
+                        <div class="alert alert-danger" role="alert">
+                            {{this}}
+                        </div>
+                        {{/each}}
+                        {{/if}}
+                        {{#if success}}
+                        {{#each success}}
+                        <div class="alert alert-success" role="alert">
+                            {{this}}
+                        </div>
+                        {{/each}}
+                        {{/if}}
+
+                    <script>
+                        window.setTimeout(function () {
+                            $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                                $(this).remove();
+                            });
+                        }, 3000);
+                    </script>
+                </a>
+            </div>
+        </header>
+
+        <form id="userRegisterForm" action="/adminupdateuser/{{user.id}}" method="post" enctype="multipart/form-data">
+
+            <div class="mb-3">
+                <label for="fullname" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="fullname" value={{user.fullname}} name="fullname" >
+            </div>
+
+            <!-- Email ID -->
+            <div class="mb-3">
+                <label for="emailid" class="form-label">Email ID</label>
+                <input type="email" class="form-control" id="emailid" value={{user.emailid}} name="emailid" >
+            </div>
+
+            <!-- Phone Number -->
+            <div class="mb-3">
+                <label for="phonenumber" class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" id="phonenumber" value={{user.phonenumber}} name="phonenumber" >
+            </div>
+
+            <div class="mb-3">
+                <label for="distic" class="form-label">Distic</label>
+                <input type="text" class="form-control" id="distic" value={{user.distic}} name="distic" >
+            </div>
+
+            <div class="mb-3">
+                <label for="block" class="form-label">Block</label>
+                <input type="text" class="form-control" id="block" value={{user.block}} name="block" >
+            </div>
+
+            <div class="mb-3">
+                <label for="village" class="form-label">Village</label>
+                <input type="text" class="form-control" id="village" value={{user.village}} name="village" >
+            </div>
+
+            <div class="mb-3">
+                <label for="cultivatedland" class="form-label">Cultivated Land</label>
+                <input type="text" class="form-control" id="cultivatedland" value={{user.cultivatedland}} name="cultivatedland" >
+            </div>
+
+            <!-- Role -->
+            <div class="mb-3">
+                <label for="role" class="form-label">Role</label>
+                <select class="form-select" id="role" name="role" value={{user.role}} >
+                    <!-- <option value="" disabled selected>Select a role</option> -->
+                    <option value="" disabled {{#unless user.role}}selected{{/unless}}>Select a role</option>
+
+                    <option value="Project Coordinator">Project Coordinator</option>
+                    <option value="Assistant Project Coordinator">Assistant Project Coordinator</option>
+                    <option value="Field Officer">Field Officer</option>
+                </select>
+            </div>
+
+            <!-- Date of Birth -->
+            <div class="mb-3">
+                <label for="dob" class="form-label">Date of Birth</label>
+                <input type="date" class="form-control" id="dob" value={{user.dob}} name="dob" >
+            </div>
+
+            <!-- Qualification -->
+            <div class="mb-3">
+                <label for="qualification" class="form-label">Qualification</label>
+                <input type="text" class="form-control" id="qualification" value={{user.qualification}} name="qualification" >
+            </div>
+
+            <!-- Profile Image -->
+            <div class="mb-3">
+                <label for="profileimage" class="form-label">Profile Image</label>
+                <input type="file" class="form-control" id="profileimage" name="profileimage" accept="image/*">
+                <img src="/profile-images/{{user.profileimage}}" width="200" height="200"></img>
+            </div>
+
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Update User</button>
+        </form>
+
+    </div>
+</div>
+
+
+
+{{>footer}}

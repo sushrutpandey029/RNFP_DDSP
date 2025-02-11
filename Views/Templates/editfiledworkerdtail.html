@@ -1,0 +1,130 @@
+{{> header farmer=farmer farmersList=farmersList}}
+
+{{> verticalnav farmersList=farmersList}}
+
+<div class="hk-pg-wrapper">
+    <div class="container-xxl">
+        <header class="invoice-header">
+            <div class="d-flex align-items-center">
+                <h1>Field Worker Work Details</h1>
+                
+                {{#if success}}
+                <div class="alert alert-success" role="alert">{{message}}</div>
+                {{/if}}
+
+                {{#if error}}
+                <div class="alert alert-danger" role="alert">{{message}}</div>
+                {{/if}}
+            </div>
+        </header>
+
+        <form id="farmerUpdateForm" method="POST" action="/AdminupdateFieldWorkerWorkDetails/{{data.id}}">
+            <!-- Displaying the fetched work details -->
+            <div class="mb-3">
+                <label for="name" class="form-label">Field Worker Name</label>
+                <input type="text" class="form-control" id="name" value="{{data.name}}" name="name" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <input type="text" class="form-control" id="address" value="{{data.address}}" name="address" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="qualifications" class="form-label">Qualifications</label>
+                <input type="text" class="form-control" id="qualifications" value="{{data.qualifications}}" name="qualifications" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="mobileNumber" class="form-label">Mobile Number</label>
+                <input type="tel" class="form-control" id="mobileNumber" value="{{data.mobileNumber}}" name="mobileNumber" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="emailID" class="form-label">Email ID</label>
+                <input type="email" class="form-control" id="emailID" value="{{data.emailID}}" name="emailID" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="workDate" class="form-label">Work Date</label>
+                <input type="date" class="form-control" id="workDate" value="{{data.workDate}}" name="workDate" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="villagesVisited" class="form-label">Villages Visited</label>
+                <input type="text" class="form-control" id="villagesVisited" value="{{data.villagesVisited}}" name="villagesVisited" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="travelInKms" class="form-label">Travel (in Kms)</label>
+                <input type="number" class="form-control" id="travelInKms" value="{{data.travelInKms}}" name="travelInKms" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="farmersContactedIndividually" class="form-label">Farmers Contacted Individually</label>
+                <input type="number" class="form-control" id="farmersContactedIndividually" value="{{data.farmersContactedIndividually}}" name="farmersContactedIndividually" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="groupMeetingsConducted" class="form-label">Group Meetings Conducted</label>
+                <input type="number" class="form-control" id="groupMeetingsConducted" value="{{data.groupMeetingsConducted}}" name="groupMeetingsConducted" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="farmersContactedInGroupMeetings" class="form-label">Farmers Contacted in Group Meetings</label>
+                <input type="number" class="form-control" id="farmersContactedInGroupMeetings" value="{{data.farmersContactedInGroupMeetings}}" name="farmersContactedInGroupMeetings" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="clusterTrainingPlace" class="form-label">Cluster Training Place</label>
+                <input type="text" class="form-control" id="clusterTrainingPlace" value="{{data.clusterTrainingPlace}}" name="clusterTrainingPlace" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="farmersAttendedTraining" class="form-label">Farmers Attended Training</label>
+                <input type="number" class="form-control" id="farmersAttendedTraining" value="{{data.farmersAttendedTraining}}" name="farmersAttendedTraining" required>
+            </div>
+
+            <!-- Editable Input Supplied Section -->
+            <div class="mb-3">
+                <label for="inputSupplied" class="form-label">Input Supplied</label>
+                <div id="inputSuppliedList">
+                    {{#each data.inputSupplied}}
+                    <div class="input-supplied-item">
+                        <label for="input{{@index}}">Name</label>
+                        <input type="text" class="form-control mb-2" id="input{{@index}}" value="{{name}}" name="inputSupplied[{{@index}}][name]" required>
+                        <label for="input{{@index}}">Quantity</label>
+                        <input type="text" class="form-control mb-2" id="input{{@index}}" value="{{quantity}}" name="inputSupplied[{{@index}}][quantity]" required>
+                        <label for="input{{@index}}">Farmer Name</label>
+                        <input type="text" class="form-control mb-2" id="input{{@index}}" value="{{farmerName}}" name="inputSupplied[{{@index}}][farmerName]" required>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+
+            <!-- Consultancy Section -->
+            <div class="mb-3">
+                <label for="consultancyTelephone" class="form-label">Consultancy via Telephone</label>
+                <input type="number" class="form-control" id="consultancyTelephone" value="{{data.consultancyTelephone}}" name="consultancyTelephone" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="consultancyWhatsApp" class="form-label">Consultancy via WhatsApp</label>
+                <input type="number" class="form-control" id="consultancyWhatsApp" value="{{data.consultancyWhatsApp}}" name="consultancyWhatsApp" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="totalConsultancy" class="form-label">Total Consultancy</label>
+                <input type="number" class="form-control" id="totalConsultancy" value="{{data.totalConsultancy}}" name="totalConsultancy" readonly>
+            </div>
+
+            <!-- Update Button -->
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary" id="updateButton">Update</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+{{> footer}}

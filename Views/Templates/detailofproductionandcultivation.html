@@ -1,0 +1,122 @@
+<!-- header partial -->
+{{>header user=user farmersList=farmersList}}
+
+<!-- vertical navigation partial -->
+{{>verticalnav user=user farmersList=farmersList}}
+
+<div class="hk-pg-wrapper">
+    <div class="container-xxl">
+        {{#if data}}
+        <!-- Cultivation Costs Section -->
+        <h4>Cultivation Costs</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Season</th>
+                    <th>Irrigation Type</th>
+                    <th>Crop Name</th>
+                    <th>Seed Cost</th>
+                    <th>Land Prepreation Cost</th>
+                    <th>Fertilizer Cost</th>
+                    <th>Pesticide Cost</th>
+                    <th>Harvest Cost</th>
+                    <th>Labour Cost</th>
+                    <th>Miscellaneous Cost</th>
+                    <th>Total Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each data.cultivationCosts}}
+                <tr>
+                    <td>{{this.crops.season}}</td>
+                    <td>{{this.crops.category}}</td>
+                    <td>{{this.crops.crop}}</td>
+                    <td>{{this.crops.costs.seedCost}}</td>
+                    <td>{{this.crops.costs.landCost}}</td>
+                    <td>{{this.crops.costs.fertilizerCost}}</td>
+                    <td>{{this.crops.costs.pesticideCost}}</td>
+                    <td>{{this.crops.costs.harvestCost}}</td>
+                    <td>{{this.crops.costs.laborCost}}</td>
+                    <td>{{this.crops.costs.miscCost}}</td>
+                    <td>{{this.totalCost}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <!-- Production Details Section -->
+        <h4>Production Details</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Season</th>
+                    <th>Irrigation Type</th>
+                    <th>Crop Name</th>
+                    <th>Production in Yield per q</th>
+                    <th>Surplus</th>
+                    <th>Sale Value</th>
+                    <th>Sale Value Per Quintal</th>
+                    <th>Total Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each data.productionDetails}}
+                {{#if this.cropName.name}}
+                <tr>
+                    <td>{{this.cropName.season}}</td>
+                    <td>{{this.cropName.irrigationType}}</td>
+                    <td>{{this.cropName.name}}</td>
+                    <td>{{this.cropName.totalYield}}</td>
+                    <td>{{this.cropName.surplus}}</td>
+                    <td>{{this.cropName.totalSaleValue}}</td>
+                    <td>{{this.cropName.saleValuePerQuintal}}</td>
+                    <td>{{this.cropName.totalCost}}</td>
+                </tr>
+                {{else}}
+                <tr>
+                    <td>{{this.cropName}}</td>
+                    <td colspan="5">N/A</td>
+                </tr>
+                {{/if}}
+                {{/each}}
+            </tbody>
+        </table>
+
+        <!-- Profit/Loss Section -->
+        <h4>Profit/Loss Details</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Season</th>
+                    <th>Irrigation Type</th>
+                    <th>Crop Name</th>
+                    <th>Cultivation Cost</th>
+                    <th>Production Cost</th>
+                    <th>Profit/Loss</th>
+                    <th>Profit/Loss Percentage</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each data.profitLossData}}
+                <tr class="{{#if (gt this.profitOrLoss 0)}}bg-success text-white{{else}}bg-danger text-white{{/if}}">
+                    <td>{{this.season}}</td>
+                    <td>{{this.irrigationType}}</td>
+                    <td>{{this.crop}}</td>
+                    <td>{{this.cultivationCost}}</td>
+                    <td>{{this.productionCost}}</td>
+                    <td>{{this.profitOrLoss}}</td>
+                    <td>{{this.profitOrLossPercentage}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        {{else}}
+        <p>No data available to display.</p>
+        {{/if}}
+    </div>
+</div>
+
+
+
+<!-- footer partial -->
+{{>footer}}

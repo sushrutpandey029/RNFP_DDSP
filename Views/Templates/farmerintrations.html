@@ -1,0 +1,54 @@
+{{>header user=user}}
+
+{{>verticalnav}}
+
+<div class="hk-pg-wrapper">
+    <div class="container-xxl">
+        <header class="invoice-header">
+            <div class="d-flex align-items-center">
+                <h1>Farmer Interaction Details</h1>
+            </div>
+        </header>
+<br>
+        <div class="col-sm-12 table-responsive">
+            <table id="table_id" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User ID</th>
+                        <th>User Role</th>
+                        <th>Village</th>
+                        <th>Farmer</th>
+                        <th>Count</th>
+                        <th>View</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each data}}
+                    <tr>
+                        <td>{{this.id}}</td>
+                        <td>{{this.user_id}}</td>
+                        <td>{{this.userrole}}</td>
+                        <td>{{this.village}}</td>
+                        <td>{{this.farmer}}</td>
+                        <td>{{this.count}}</td>
+                        <td>
+                            <a href="/interaction-details/{{this.village}}/{{this.farmer}}" class="btn btn-primary">
+                                View
+                            </a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{{>footer}}
+
+<script>
+    $(document).ready(function () {
+        $('#table_id').DataTable();
+    });
+</script>

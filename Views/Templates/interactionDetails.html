@@ -1,0 +1,41 @@
+{{>header user=user}}
+
+{{>verticalnav}}
+
+<div class="hk-pg-wrapper">
+    <div class="container-xxl">
+        <header class="invoice-header">
+            <div class="d-flex align-items-center">
+                <h1>Interaction Details for Village: {{village}} and Farmer: {{farmer}}</h1>
+            </div>
+        </header>
+
+        <div class="col-sm-12">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User ID</th>
+                        <th>User Role</th>
+                        <th>Observation in Brief</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each data}}
+                    <tr>
+                        <td>{{this.id}}</td>
+                        <td>{{this.user_id}}</td>
+                        <td>{{this.userrole}}</td>
+                        <td>{{this.observationInBrief}}</td>
+                        <td>{{this.date}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <a href="/intration_with_farmer" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
+
+{{>footer}}

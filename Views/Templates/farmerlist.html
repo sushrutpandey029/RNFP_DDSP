@@ -1,0 +1,60 @@
+{{>header user=user farmersList=farmersList}}
+
+{{>verticalnav farmersList=farmersList}}
+
+<div class="hk-pg-wrapper">
+    <div class="container-xxl">
+        <header class="invoice-header">
+            <div class="d-flex align-items-center">
+                <a class="invoiceapp-title link-dark" data-bs-toggle="dropdown" href="#" role="button"
+                    aria-haspopup="true" aria-expanded="false">
+                    <h1>All Farmers</h1>
+                </a>
+            </div>
+        </header>
+        <br>
+        <div class="col-sm-12">
+            <table id="table_id" class="display">
+                <thead>
+                    <tr>
+                        <th>Sr.No</th>
+                        <th>UserRole</th>
+                        <th>FarmerID / CropDetail</th>
+                        <th>Name</th>
+                        <th>VillageName</th>
+                        <th>Taluka</th>
+                        <th>ClusterName</th>
+                        <th>Total Land (Ac)</th>
+                        <th>TypeOfLand</th>
+                        <th>View</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each farmers}}
+                    <tr>
+                        <td>{{this.id}}</td>
+                        <td>{{this.userrole}}</td>
+                        <td><a href="/getproduction_and_cultivation_detail/{{this.farmerID}}"
+                                class="btn btn-sm btn-gradient-info">
+                                {{this.farmerID}}
+                            </a></td>
+                        <td>{{this.name}}</td>
+                        <td>{{this.villageName}}</td>
+                        <td>{{this.taluka}}</td>
+                        <td>{{this.clusterName}}</td>
+                        <td>{{this.cultivatedLand}}</td>
+                        <td>{{this.typeOfLand}}</td>
+                        <td><a href="/editfarmer/{{this.id}}" class="edit_icon" ><i class="bi bi-pencil-fill"></i>
+                            </a></td>
+                        <td><a href="/deletefarmer/{{this.id}}" class="delete_icon"
+                                onclick="return confirm('Are you sure you want to delete this farmer?');"><i class="bi bi-trash3-fill"></i>
+                            </a></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{{>footer}}

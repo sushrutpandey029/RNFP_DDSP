@@ -1,0 +1,160 @@
+{{>header user=user farmersList=farmersList}}
+
+{{>verticalnav user=user farmersList=farmersList}}
+
+<div class="hk-pg-wrapper">
+    <div class="container-xxl">
+        <header class="invoice-header">
+            <div class="d-flex align-items-center">
+                <h1>Crop-Details-Percentage</h1>
+            </div>
+        </header>
+
+        <form id="filterForm" method="get" action="/Crop-Details">
+            <!-- Farmer Dropdown -->
+            <div class="col 2-md-3">
+                <!-- Farmer Dropdown -->
+                <label class="form-label me-2">Select Farmer</label>
+                <select id="farmerID" name="farmerID">
+                    <option value="">Select Farmer</option>
+                    {{#each data.allFarmerIDs}}
+                    <option value="{{this.farmerID}}" {{#ifEquals this.farmerID
+                        ../data.defaultFarmerID}}selected{{/ifEquals}}>{{this.name}}</option>
+                    {{/each}}
+                </select>
+
+                <!-- Year Dropdown -->
+                <label class="form-label me-2">Select year</label>
+                <select id="year" name="year">
+                    <option value="">Select Year</option>
+                    {{#each data.yearList}}
+                    <option value="{{this}}" {{#ifEquals this ../data.currentYear}}selected{{/ifEquals}}>{{this}}
+                    </option>
+                    {{/each}}
+                </select>
+                <button type="submit-btn" id="Sumit-btn report" class="btn btn-primary mt-3">Submit</button>
+            </div>
+
+            <!-- <button type="submit" class="btn btn-primary mt-3">Submit</button> -->
+        </form>
+    </div>
+    <br>
+
+    <form method="GET"  action="download_filtered_crop_data">
+        <input type="hidden" name="farmerID" id="hiddenFarmerID" value="{{data.defaultFarmerID}}">
+        <button type="submit"  id ="excel-to-excel-btn-crop-percentage"class="btn btn-sm btn-primary">Export to Excel</button>
+    </form>
+    
+    <script>
+        const farmerDropdown = document.getElementById("farmerID");
+        const hiddenInput = document.getElementById("hiddenFarmerID");
+    
+        // Update hidden input when the dropdown value changes
+        farmerDropdown.addEventListener("change", (event) => {
+            hiddenInput.value = event.target.value;
+        });
+    </script>
+
+    {{#if data}}
+    <!-- Cultivation Costs Section -->
+    <h4>Cultivation Costs</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Season</th>
+                <th>Irrigation Type</th>
+                <th>Crop Name</th>
+                <th>Seed Cost</th>
+                <th>Land Preparation Cost</th>
+                <th>Fertilizer Cost</th>
+                <th>Pesticide Cost</th>
+                <th>Harvest Cost</th>
+                <th>Labour Cost</th>
+                <th>Miscellaneous Cost</th>
+                <th>Total Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each data.cultivationCosts}}
+            <tr>
+                <td>{{this.crops.season}}</td>
+                <td>{{this.crops.category}}</td>
+                <td>{{this.crops.crop}}</td>
+                <td>{{this.crops.costs.seedCost}}</td>
+                <td>{{this.crops.costs.landCost}}</td>
+                <td>{{this.crops.costs.fertilizerCost}}</td>
+                <td>{{this.crops.costs.pesticideCost}}</td>
+                <td>{{this.crops.costs.harvestCost}}</td>
+                <td>{{this.crops.costs.laborCost}}</td>
+                <td>{{this.crops.costs.miscCost}}</td>
+                <td>{{this.totalCost}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <!-- Production Details Section -->
+    <h4>Production Details</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Season</th>
+                <th>Irrigation Type</th>
+                <th>Crop Name</th>
+                <th>Production in Yield per q</th>
+                <th>Surplus</th>
+                <th>Sale Value</th>
+                <th>Sale Value Per Quintal</th>
+                <th>Total Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each data.productionDetails}}
+            <tr>
+                <td>{{this.cropName.season}}</td>
+                <td>{{this.cropName.irrigationType}}</td>
+                <td>{{this.cropName.name}}</td>
+                <td>{{this.cropName.totalYield}}</td>
+                <td>{{this.cropName.surplus}}</td>
+                <td>{{this.cropName.totalSaleValue}}</td>
+                <td>{{this.cropName.saleValuePerQuintal}}</td>
+                <td>{{this.cropName.totalCost}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <!-- Profit/Loss Section -->
+    <h4>Profit/Loss Details</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Season</th>
+                <th>Irrigation Type</th>
+                <th>Crop Name</th>
+                <th>Cultivation Cost</th>
+                <th>Production Cost</th>
+                <th>Profit/Loss</th>
+                <th>Profit/Loss Percentage</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each data.profitLossData}}
+            <tr class="{{#if (gt this.profitOrLoss 0)}}bg-success text-white{{else}}bg-danger text-white{{/if}}">
+                <td>{{this.season}}</td>
+                <td>{{this.irrigationType}}</td>
+                <td>{{this.crop}}</td>
+                <td>{{this.cultivationCost}}</td>
+                <td>{{this.productionCost}}</td>
+                <td>{{this.profitOrLoss}}</td>
+                <td>{{this.profitOrLossPercentage}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    {{else}}
+    <p>No data available to display.</p>
+    {{/if}}
+</div>
+
+{{>footer}}
