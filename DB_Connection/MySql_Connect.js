@@ -1,10 +1,12 @@
 import { Sequelize } from "sequelize";
 
 const sequelize  = new Sequelize('milleniancecom_ddsp_app','milleniancecom_ddspapp','@$e$4~bzK5SS',{
-    host: '127.0.0.1',  // Replace with the actual hostname
+    host: '68.178.173.163',  // Replace with the actual hostname
   dialect: 'mysql',
   port: 3306  // Default MySQL port
 });
+
+
 
 const Db_connetion= async()=>{
     try{
